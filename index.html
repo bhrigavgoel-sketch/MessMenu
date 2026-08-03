@@ -1,1217 +1,1351 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Mess Menu — Daily Meal Schedule & Food Planner</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    /* Light Theme Glass Tokens */
-    --bg-gradient: linear-gradient(135deg, #FFD0D6, #E2C2FF, #C2D5FF, #FFE2C2);
-    --ink: #140E26;
-    --cloud: rgba(255, 255, 255, 0.48);
-    --cloud-solid: #FFFFFF;
-    --edge: rgba(255, 255, 255, 0.7);
-    --edge-soft: rgba(20, 14, 38, 0.09);
-    --text-soft: rgba(20, 14, 38, 0.82);
-    --text-dim: rgba(20, 14, 38, 0.55);
-    --accent-text: #d94b00;
-    
-    /* Component Tokens */
-    --card-gradient: linear-gradient(145deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.22));
-    --card-active: linear-gradient(145deg, rgba(255, 255, 255, 0.85), rgba(255, 220, 180, 0.55));
-    --item-bg: rgba(255, 255, 255, 0.6);
-    --item-border: rgba(255, 255, 255, 0.75);
-    --note-bg: rgba(255, 255, 255, 0.38);
-    --pill-bg: linear-gradient(120deg, #FF5E83, #FF9940);
-    --pill-upcoming: linear-gradient(120deg, #4F86FF, #894FFF);
-    --glass-shadow: 0 20px 50px -12px rgba(20, 14, 38, 0.22), 0 8px 24px -6px rgba(0,0,0,0.12);
-    --btn-primary: linear-gradient(135deg, #FF5E83, #FF8340);
-    --btn-primary-hover: linear-gradient(135deg, #E04B6F, #E66F2E);
-    --modal-bg: rgba(255, 255, 255, 0.78);
-    --input-bg: rgba(255, 255, 255, 0.7);
-    --input-border: rgba(20, 14, 38, 0.18);
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Mess Menu — Daily Meal Schedule & Food Planner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      /* Light Theme Glass Tokens */
+      --bg-gradient: linear-gradient(135deg, #FFD0D6, #E2C2FF, #C2D5FF, #FFE2C2);
+      --ink: #140E26;
+      --cloud: rgba(255, 255, 255, 0.48);
+      --cloud-solid: #FFFFFF;
+      --edge: rgba(255, 255, 255, 0.7);
+      --edge-soft: rgba(20, 14, 38, 0.09);
+      --text-soft: rgba(20, 14, 38, 0.82);
+      --text-dim: rgba(20, 14, 38, 0.55);
+      --accent-text: #d94b00;
 
-  [data-theme="dark"] {
-    /* Dark Theme Glass Tokens */
-    --bg-gradient: linear-gradient(135deg, #090412, #180c2b, #0b1324, #190c17);
-    --ink: #F7F5FF;
-    --cloud: rgba(18, 12, 32, 0.62);
-    --cloud-solid: #19122b;
-    --edge: rgba(255, 255, 255, 0.18);
-    --edge-soft: rgba(255, 255, 255, 0.1);
-    --text-soft: rgba(247, 245, 255, 0.85);
-    --text-dim: rgba(247, 245, 255, 0.55);
-    --accent-text: #FF9E5E;
+      /* Component Tokens */
+      --card-gradient: linear-gradient(145deg, rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.22));
+      --card-active: linear-gradient(145deg, rgba(255, 255, 255, 0.85), rgba(255, 220, 180, 0.55));
+      --item-bg: rgba(255, 255, 255, 0.6);
+      --item-border: rgba(255, 255, 255, 0.75);
+      --note-bg: rgba(255, 255, 255, 0.38);
+      --pill-bg: linear-gradient(120deg, #FF5E83, #FF9940);
+      --pill-upcoming: linear-gradient(120deg, #4F86FF, #894FFF);
+      --glass-shadow: 0 20px 50px -12px rgba(20, 14, 38, 0.22), 0 8px 24px -6px rgba(0, 0, 0, 0.12);
+      --btn-primary: linear-gradient(135deg, #FF5E83, #FF8340);
+      --btn-primary-hover: linear-gradient(135deg, #E04B6F, #E66F2E);
+      --modal-bg: rgba(255, 255, 255, 0.78);
+      --input-bg: rgba(255, 255, 255, 0.7);
+      --input-border: rgba(20, 14, 38, 0.18);
+    }
 
-    /* Component Tokens */
-    --card-gradient: linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
-    --card-active: linear-gradient(145deg, rgba(95, 55, 125, 0.5), rgba(65, 40, 95, 0.3));
-    --item-bg: rgba(10, 6, 20, 0.5);
-    --item-border: rgba(255, 255, 255, 0.14);
-    --note-bg: rgba(0, 0, 0, 0.35);
-    --pill-bg: linear-gradient(120deg, #FF4B72, #FF7C33);
-    --pill-upcoming: linear-gradient(120deg, #3A78F2, #7B3AF2);
-    --glass-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.75), 0 10px 30px -8px rgba(0, 0, 0, 0.5);
-    --btn-primary: linear-gradient(135deg, #FF4B72, #FF7C33);
-    --btn-primary-hover: linear-gradient(135deg, #E0385E, #E66820);
-    --modal-bg: rgba(16, 10, 28, 0.86);
-    --input-bg: rgba(10, 6, 20, 0.6);
-    --input-border: rgba(255, 255, 255, 0.2);
-  }
-  
-  /* ---- Hide Scrollbars Everywhere ---- */
-  * { 
-    box-sizing: border-box; 
-    -webkit-tap-highlight-color: transparent;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+    [data-theme="dark"] {
+      /* Dark Theme Glass Tokens */
+      --bg-gradient: linear-gradient(135deg, #090412, #180c2b, #0b1324, #190c17);
+      --ink: #F7F5FF;
+      --cloud: rgba(18, 12, 32, 0.62);
+      --cloud-solid: #19122b;
+      --edge: rgba(255, 255, 255, 0.18);
+      --edge-soft: rgba(255, 255, 255, 0.1);
+      --text-soft: rgba(247, 245, 255, 0.85);
+      --text-dim: rgba(247, 245, 255, 0.55);
+      --accent-text: #FF9E5E;
 
-  ::-webkit-scrollbar {
-    display: none;
-    width: 0;
-    height: 0;
-  }
+      /* Component Tokens */
+      --card-gradient: linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
+      --card-active: linear-gradient(145deg, rgba(95, 55, 125, 0.5), rgba(65, 40, 95, 0.3));
+      --item-bg: rgba(10, 6, 20, 0.5);
+      --item-border: rgba(255, 255, 255, 0.14);
+      --note-bg: rgba(0, 0, 0, 0.35);
+      --pill-bg: linear-gradient(120deg, #FF4B72, #FF7C33);
+      --pill-upcoming: linear-gradient(120deg, #3A78F2, #7B3AF2);
+      --glass-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.75), 0 10px 30px -8px rgba(0, 0, 0, 0.5);
+      --btn-primary: linear-gradient(135deg, #FF4B72, #FF7C33);
+      --btn-primary-hover: linear-gradient(135deg, #E0385E, #E66820);
+      --modal-bg: rgba(16, 10, 28, 0.86);
+      --input-bg: rgba(10, 6, 20, 0.6);
+      --input-border: rgba(255, 255, 255, 0.2);
+    }
 
-  html, body { 
-    margin: 0; 
-    padding: 0; 
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  
-  body {
-    min-height: 100vh;
-    color: var(--ink);
-    font-family: 'Space Grotesk', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    background: var(--bg-gradient);
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-    position: relative;
-    overflow-x: hidden;
-    transition: background 0.4s ease, color 0.3s ease;
-    padding-bottom: env(safe-area-inset-bottom);
-  }
+    /* ---- Hide Scrollbars Everywhere ---- */
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
 
-  a { color: inherit; text-decoration: none; }
+    ::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+    }
 
-  .wrap {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 28px 20px 80px;
-    position: relative;
-    z-index: 1;
-  }
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
 
-  /* ---- Pure Glassmorphism & Shadow Depth ---- */
-  .glass {
-    background: var(--cloud);
-    backdrop-filter: blur(36px) saturate(200%);
-    -webkit-backdrop-filter: blur(36px) saturate(200%);
-    border: 1px solid var(--edge);
-    box-shadow:
-      var(--glass-shadow),
-      inset 0 1px 1px rgba(255, 255, 255, 0.35),
-      inset 0 -1px 1px rgba(0, 0, 0, 0.08);
-    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-  }
+    body {
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: 'Space Grotesk', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: var(--bg-gradient);
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      position: relative;
+      overflow-x: hidden;
+      transition: background 0.4s ease, color 0.3s ease;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
 
-  /* ---- Header ---- */
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 24px;
-    margin-bottom: 28px;
-    border-radius: 24px;
-    flex-wrap: wrap;
-  }
-  .brand {
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    font-size: 1.6rem;
-    letter-spacing: -0.02em;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .brand span {
-    background: linear-gradient(120deg, #FF5E83, #FF9940);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-  .header-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .datebox {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.84rem;
-    color: var(--text-soft);
-    letter-spacing: 0.02em;
-    font-weight: 600;
-    padding: 6px 14px;
-    background: var(--note-bg);
-    border-radius: 12px;
-    border: 1px solid var(--edge-soft);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    white-space: nowrap;
-  }
-  
-  .icon-btn {
-    background: var(--card-gradient);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--edge);
-    color: var(--ink);
-    border-radius: 14px;
-    padding: 8px 16px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 600;
-    min-height: 40px;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-    transition: transform 0.2s ease, background 0.3s ease, border-color 0.2s ease;
-  }
-  .icon-btn:hover, .icon-btn:active {
-    transform: translateY(-2px);
-    border-color: var(--edge);
-    background: var(--card-active);
-  }
-  .icon-btn.icon-only {
-    padding: 8px;
-    width: 40px;
-    height: 40px;
-    justify-content: center;
-    border-radius: 50%;
-  }
-
-  /* ---- Hero Layout ---- */
-  .hero {
-    margin-bottom: 36px;
-  }
-
-  /* ---- Dabba Card ---- */
-  .dabba {
-    position: relative;
-    border-radius: 28px;
-    padding: 32px 34px;
-    display: flex;
-    flex-direction: column;
-    background: var(--card-gradient);
-    backdrop-filter: blur(36px) saturate(200%);
-    -webkit-backdrop-filter: blur(36px) saturate(200%);
-  }
-  .dabba-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 18px;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .dabba-header-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  .dabba-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.76rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--text-dim);
-    font-weight: 700;
-  }
-  .schedule-type-badge {
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 999px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    font-weight: 700;
-    background: var(--note-bg);
-    border: 1px solid var(--edge-soft);
-    color: var(--text-soft);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-  }
-  .dabba-pill {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    padding: 6px 16px;
-    border-radius: 999px;
-    color: #fff;
-    background: var(--pill-bg);
-    box-shadow: 0 6px 20px -4px rgba(255, 94, 131, 0.45);
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .dabba-pill.upcoming {
-    background: var(--pill-upcoming);
-    box-shadow: 0 6px 20px -4px rgba(79, 134, 255, 0.45);
-  }
-  .meal-heading {
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    font-size: clamp(1.8rem, 4vw, 2.4rem);
-    line-height: 1.15;
-    margin: 0 0 18px;
-  }
-  .item-list {
-    list-style: none;
-    margin: 0 0 24px;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .item-list li {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    padding: 10px 16px;
-    border-radius: 14px;
-    background: var(--item-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--item-border);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    transition: transform 0.2s ease;
-  }
-  .item-list li:hover {
-    transform: scale(1.02);
-  }
-  .item-list li::before {
-    content: "•";
-    color: #FF5E83;
-    font-weight: bold;
-    font-size: 1.2rem;
-    line-height: 0;
-  }
-
-  .dabba-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-    border-top: 1px dashed var(--edge-soft);
-    padding-top: 18px;
-    margin-top: auto;
-    flex-wrap: wrap;
-  }
-  .meal-window {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.86rem;
-    color: var(--text-soft);
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .status-badge {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--accent-text);
-    background: var(--note-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    padding: 6px 14px;
-    border-radius: 12px;
-    border: 1px solid var(--edge-soft);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  /* ---- Section Headers ---- */
-  .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin: 36px 0 16px;
-    padding: 0 4px;
-  }
-  .section-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    font-size: 1.35rem;
-    margin: 0 0 4px;
-  }
-  .section-sub {
-    font-size: 0.9rem;
-    color: var(--text-soft);
-    margin: 0;
-    font-weight: 500;
-  }
-
-  /* ---- Full Day Notes Cards ---- */
-  .day-notes {
-    border-radius: 26px;
-    padding: 22px;
-    margin-bottom: 36px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-  }
-
-  .note-item {
-    background: var(--note-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--edge-soft);
-    border-radius: 20px;
-    padding: 16px 18px;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.04);
-    transition: transform 0.2s ease, background 0.3s ease, border-color 0.3s ease;
-  }
-  .note-item:hover {
-    transform: translateY(-3px);
-  }
-  .note-item .k {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--accent-text);
-    font-weight: 700;
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .note-item .time-tag {
-    font-size: 0.65rem;
-    color: var(--text-dim);
-    font-weight: 500;
-  }
-  .note-item .v {
-    font-size: 0.92rem;
-    line-height: 1.45;
-    font-weight: 500;
-  }
-  .note-item.active {
-    background: var(--card-active);
-    border-color: var(--edge);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
-  }
-  .note-item.active .v { font-weight: 700; color: var(--ink); }
-
-  /* ---- Week Grid ---- */
-  .week {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 12px;
-  }
-
-  .day-card {
-    border-radius: 22px;
-    padding: 18px 16px;
-    backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-  }
-  .day-card:hover { 
-    transform: translateY(-5px); 
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.16);
-  }
-  .day-card.today {
-    background: var(--card-active);
-    border-color: var(--edge);
-    box-shadow: 0 10px 28px rgba(255, 94, 131, 0.2);
-  }
-  .day-card .dname {
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    font-size: 1rem;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--edge-soft);
-  }
-  .today-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: #FF5E83;
-    display: inline-block;
-    box-shadow: 0 0 12px #FF5E83;
-  }
-  .day-card .row {
-    font-size: 0.78rem;
-    line-height: 1.45;
-    margin-bottom: 10px;
-    color: var(--text-soft);
-    font-weight: 500;
-  }
-  .day-card .row:last-child { margin-bottom: 0; }
-  .day-card .row b {
-    display: block;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--text-dim);
-    font-weight: 700;
-    margin-bottom: 2px;
-  }
-
-  /* ---- Admin / Edit Modal ---- */
-  .modal-backdrop {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(8, 4, 18, 0.62);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-  }
-  .modal-backdrop.open {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .modal-container {
-    width: 100%;
-    max-width: 780px;
-    max-height: 90vh;
-    border-radius: 28px;
-    background: var(--modal-bg);
-    backdrop-filter: blur(40px) saturate(200%);
-    -webkit-backdrop-filter: blur(40px) saturate(200%);
-    border: 1px solid var(--edge);
-    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.4);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    transform: translateY(20px) scale(0.96);
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .modal-backdrop.open .modal-container {
-    transform: translateY(0) scale(1);
-  }
-
-  .modal-header {
-    padding: 20px 26px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--edge-soft);
-  }
-  .modal-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    font-size: 1.35rem;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .close-btn {
-    background: transparent;
-    border: none;
-    color: var(--ink);
-    font-size: 1.5rem;
-    cursor: pointer;
-    width: 38px; height: 38px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s;
-  }
-  .close-btn:hover, .close-btn:active { background: var(--edge-soft); }
-
-  /* Modal Tabs */
-  .modal-tabs {
-    display: flex;
-    gap: 8px;
-    padding: 12px 26px;
-    background: var(--note-bg);
-    border-bottom: 1px solid var(--edge-soft);
-  }
-  .tab-btn {
-    padding: 10px 16px;
-    border-radius: 12px;
-    border: 1px solid transparent;
-    background: transparent;
-    color: var(--text-soft);
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .tab-btn.active {
-    background: var(--cloud-solid);
-    color: var(--ink);
-    border-color: var(--edge);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  }
-
-  .modal-body {
-    padding: 24px 26px;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    flex: 1;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .timings-section-title {
-    font-family: 'Fraunces', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin: 0 0 14px;
-    color: var(--ink);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .timing-block {
-    background: var(--note-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--edge-soft);
-    border-radius: 20px;
-    padding: 18px 20px;
-    margin-bottom: 20px;
-  }
-  .timing-block:last-child {
-    margin-bottom: 0;
-  }
-
-  /* Wallpaper Preset Grid in Modal Tab 3 */
-  .preset-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-  @media (max-width: 540px) {
-    .preset-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  .preset-card {
-    height: 84px;
-    border-radius: 16px;
-    border: 2px solid var(--edge-soft);
-    background-size: cover;
-    background-position: center;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: flex-end;
-    padding: 8px 10px;
-    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-  .preset-card:hover {
-    transform: translateY(-2px);
-    border-color: #FF5E83;
-    box-shadow: 0 6px 16px rgba(255, 94, 131, 0.3);
-  }
-  .preset-card.active {
-    border-color: #FF5E83;
-    box-shadow: 0 0 0 3px rgba(255, 94, 131, 0.4);
-  }
-  .preset-card .preset-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(8px);
-    padding: 3px 8px;
-    border-radius: 8px;
-    width: 100%;
-  }
-
-  /* Day Selector Tabs in Modal */
-  .day-selector {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 20px;
-    overflow-x: auto;
-    padding-bottom: 6px;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .day-pill-btn {
-    padding: 8px 16px;
-    border-radius: 999px;
-    border: 1px solid var(--input-border);
-    background: var(--input-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    color: var(--text-soft);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.82rem;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.2s ease;
-  }
-  .day-pill-btn.active {
-    background: var(--btn-primary);
-    color: #fff;
-    border-color: transparent;
-    box-shadow: 0 4px 12px rgba(255, 94, 131, 0.3);
-  }
-
-  /* Form Fields */
-  .form-group {
-    margin-bottom: 16px;
-  }
-  .form-label {
-    display: block;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--accent-text);
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-  .form-control {
-    width: 100%;
-    padding: 10px 14px;
-    border-radius: 12px;
-    border: 1px solid var(--input-border);
-    background: var(--input-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    color: var(--ink);
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.95rem;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-  .form-control:focus {
-    outline: none;
-    border-color: #FF5E83;
-    box-shadow: 0 0 0 3px rgba(255, 94, 131, 0.2);
-  }
-  textarea.form-control {
-    resize: vertical;
-    min-height: 64px;
-  }
-
-  .meal-time-row {
-    display: grid;
-    grid-template-columns: 120px 1fr 1fr;
-    gap: 14px;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-  .meal-time-row .meal-name-label {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-  }
-
-  .modal-footer {
-    padding: 16px 26px;
-    border-top: 1px solid var(--edge-soft);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-  }
-  .btn {
-    padding: 12px 20px;
-    border-radius: 14px;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 600;
-    font-size: 0.9rem;
-    cursor: pointer;
-    border: 1px solid transparent;
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-  }
-  .btn-primary {
-    background: var(--btn-primary);
-    color: #fff;
-    box-shadow: 0 4px 16px rgba(255, 94, 131, 0.35);
-  }
-  .btn-primary:hover, .btn-primary:active {
-    background: var(--btn-primary-hover);
-    transform: translateY(-1px);
-  }
-  .btn-secondary {
-    background: transparent;
-    border-color: var(--input-border);
-    color: var(--ink);
-  }
-  .btn-secondary:hover, .btn-secondary:active {
-    background: var(--edge-soft);
-  }
-  .btn-danger {
-    background: transparent;
-    color: #FF4D4D;
-    font-size: 0.84rem;
-  }
-  .btn-danger:hover {
-    text-decoration: underline;
-  }
-
-  /* Toast Notification */
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background: #10B981;
-    color: #fff;
-    padding: 12px 20px;
-    border-radius: 14px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    z-index: 2000;
-    transform: translateY(100px);
-    opacity: 0;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .toast.show {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  /* ---- Responsive Media Queries ---- */
-  @media (max-width: 960px) {
-    .week { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  @media (max-width: 640px) {
     .wrap {
-      padding: 16px 14px 60px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 28px 20px 80px;
+      position: relative;
+      z-index: 1;
     }
+
+    /* ---- Pure Glassmorphism & Shadow Depth ---- */
+    .glass {
+      background: var(--cloud);
+      backdrop-filter: blur(36px) saturate(200%);
+      -webkit-backdrop-filter: blur(36px) saturate(200%);
+      border: 1px solid var(--edge);
+      box-shadow:
+        var(--glass-shadow),
+        inset 0 1px 1px rgba(255, 255, 255, 0.35),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.08);
+      transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    }
+
+    /* ---- Header ---- */
     header {
-      padding: 12px 16px;
-      margin-bottom: 20px;
-      border-radius: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 24px;
+      margin-bottom: 28px;
+      border-radius: 24px;
+      flex-wrap: wrap;
     }
+
     .brand {
-      font-size: 1.35rem;
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 1.6rem;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
+
+    .brand span {
+      background: linear-gradient(120deg, #FF5E83, #FF9940);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
     .datebox {
-      font-size: 0.76rem;
-      padding: 5px 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.84rem;
+      color: var(--text-soft);
+      letter-spacing: 0.02em;
+      font-weight: 600;
+      padding: 6px 14px;
+      background: var(--note-bg);
+      border-radius: 12px;
+      border: 1px solid var(--edge-soft);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      white-space: nowrap;
     }
+
     .icon-btn {
-      padding: 8px 12px;
-      font-size: 0.82rem;
-      border-radius: 12px;
-    }
-    .hero {
-      margin-bottom: 24px;
-    }
-    .dabba {
-      padding: 22px 18px;
-      border-radius: 22px;
-    }
-    .dabba-top {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
-    }
-    .dabba-header-left {
-      width: 100%;
-      justify-content: space-between;
-    }
-    .dabba-pill {
-      font-size: 0.7rem;
-      padding: 5px 12px;
-    }
-    .meal-heading {
-      font-size: 1.55rem;
-      margin-bottom: 14px;
-    }
-    .item-list {
+      background: var(--card-gradient);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--edge);
+      color: var(--ink);
+      border-radius: 14px;
+      padding: 8px 16px;
+      display: inline-flex;
+      align-items: center;
       gap: 8px;
-      margin-bottom: 20px;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      min-height: 40px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease, background 0.3s ease, border-color 0.2s ease;
     }
-    .item-list li {
-      font-size: 0.92rem;
-      padding: 8px 14px;
-      border-radius: 12px;
-      width: 100%;
+
+    .icon-btn:hover,
+    .icon-btn:active {
+      transform: translateY(-2px);
+      border-color: var(--edge);
+      background: var(--card-active);
     }
-    .dabba-footer {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 10px;
-      padding-top: 14px;
-    }
-    .meal-window {
-      font-size: 0.8rem;
-      justify-content: space-between;
-    }
-    .status-badge {
-      font-size: 0.82rem;
+
+    .icon-btn.icon-only {
+      padding: 8px;
+      width: 40px;
+      height: 40px;
       justify-content: center;
-      padding: 8px 12px;
-      width: 100%;
-      text-align: center;
+      border-radius: 50%;
     }
-    .section-header {
-      margin: 28px 0 12px;
+
+    /* ---- Hero Layout ---- */
+    .hero {
+      margin-bottom: 36px;
     }
-    .section-title {
-      font-size: 1.2rem;
+
+    /* ---- Dabba Card ---- */
+    .dabba {
+      position: relative;
+      border-radius: 28px;
+      padding: 32px 34px;
+      display: flex;
+      flex-direction: column;
+      background: var(--card-gradient);
+      backdrop-filter: blur(36px) saturate(200%);
+      -webkit-backdrop-filter: blur(36px) saturate(200%);
     }
-    .section-sub {
-      font-size: 0.82rem;
+
+    .dabba-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      gap: 12px;
+      flex-wrap: wrap;
     }
-    .day-notes {
-      grid-template-columns: 1fr;
-      padding: 14px;
+
+    .dabba-header-left {
+      display: flex;
+      align-items: center;
       gap: 10px;
-      border-radius: 20px;
+      flex-wrap: wrap;
     }
+
+    .dabba-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      font-weight: 700;
+    }
+
+    .schedule-type-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: var(--note-bg);
+      border: 1px solid var(--edge-soft);
+      color: var(--text-soft);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .dabba-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 6px 16px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--pill-bg);
+      box-shadow: 0 6px 20px -4px rgba(255, 94, 131, 0.45);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dabba-pill.upcoming {
+      background: var(--pill-upcoming);
+      box-shadow: 0 6px 20px -4px rgba(79, 134, 255, 0.45);
+    }
+
+    .meal-heading {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      line-height: 1.15;
+      margin: 0 0 18px;
+    }
+
+    .item-list {
+      list-style: none;
+      margin: 0 0 24px;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .item-list li {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 10px 16px;
+      border-radius: 14px;
+      background: var(--item-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--item-border);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease;
+    }
+
+    .item-list li:hover {
+      transform: scale(1.02);
+    }
+
+    .item-list li::before {
+      content: "•";
+      color: #FF5E83;
+      font-weight: bold;
+      font-size: 1.2rem;
+      line-height: 0;
+    }
+
+    .dabba-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      border-top: 1px dashed var(--edge-soft);
+      padding-top: 18px;
+      margin-top: auto;
+      flex-wrap: wrap;
+    }
+
+    .meal-window {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.86rem;
+      color: var(--text-soft);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-text);
+      background: var(--note-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 6px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--edge-soft);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ---- Section Headers ---- */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin: 36px 0 16px;
+      padding: 0 4px;
+    }
+
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 1.35rem;
+      margin: 0 0 4px;
+    }
+
+    .section-sub {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      margin: 0;
+      font-weight: 500;
+    }
+
+    /* ---- Full Day Notes Cards ---- */
+    .day-notes {
+      border-radius: 26px;
+      padding: 22px;
+      margin-bottom: 36px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
     .note-item {
-      padding: 14px 16px;
-      border-radius: 16px;
+      background: var(--note-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--edge-soft);
+      border-radius: 20px;
+      padding: 16px 18px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+      transition: transform 0.2s ease, background 0.3s ease, border-color 0.3s ease;
     }
+
+    .note-item:hover {
+      transform: translateY(-3px);
+    }
+
+    .note-item .k {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-text);
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .note-item .time-tag {
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+
+    .note-item .v {
+      font-size: 0.92rem;
+      line-height: 1.45;
+      font-weight: 500;
+    }
+
+    .note-item.active {
+      background: var(--card-active);
+      border-color: var(--edge);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .note-item.active .v {
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    /* ---- Week Grid ---- */
     .week {
-      grid-template-columns: 1fr;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
       gap: 12px;
     }
+
     .day-card {
-      padding: 16px 14px;
-      border-radius: 18px;
+      border-radius: 22px;
+      padding: 18px 16px;
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     }
 
-    .modal-backdrop {
-      padding: 0;
-      align-items: flex-end;
+    .day-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.16);
     }
-    .modal-container {
-      max-width: 100%;
-      max-height: 92vh;
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-      border-top-left-radius: 24px;
-      border-top-right-radius: 24px;
+
+    .day-card.today {
+      background: var(--card-active);
+      border-color: var(--edge);
+      box-shadow: 0 10px 28px rgba(255, 94, 131, 0.2);
     }
-    .modal-header {
-      padding: 16px 20px;
+
+    .day-card .dname {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--edge-soft);
     }
-    .modal-tabs {
-      padding: 8px 16px;
+
+    .today-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #FF5E83;
+      display: inline-block;
+      box-shadow: 0 0 12px #FF5E83;
     }
-    .tab-btn {
-      flex: 1;
-      text-align: center;
-      padding: 8px 10px;
-      font-size: 0.82rem;
+
+    .day-card .row {
+      font-size: 0.78rem;
+      line-height: 1.45;
+      margin-bottom: 10px;
+      color: var(--text-soft);
+      font-weight: 500;
     }
-    .modal-body {
-      padding: 18px 20px;
+
+    .day-card .row:last-child {
+      margin-bottom: 0;
     }
-    .form-control {
-      font-size: 16px;
-    }
-    .meal-time-row {
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    .meal-time-row .meal-name-label {
-      grid-column: span 2;
+
+    .day-card .row b {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+      font-weight: 700;
       margin-bottom: 2px;
     }
-    .modal-footer {
-      flex-direction: column-reverse;
-      align-items: stretch;
-      gap: 10px;
-      padding: 14px 20px;
-    }
-    .modal-footer > div {
-      width: 100%;
-      display: flex;
-      gap: 10px;
-    }
-    .modal-footer .btn {
-      flex: 1;
-    }
-    .btn-danger {
-      text-align: center;
-      padding: 6px;
-    }
-    .toast {
-      bottom: 16px;
-      left: 16px;
-      right: 16px;
-      justify-content: center;
-    }
-  }
 
-  footer {
-    margin-top: 40px;
-    font-size: 0.78rem;
-    color: var(--text-dim);
-    text-align: center;
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 500;
-  }
-</style>
+    /* ---- Admin / Edit Modal ---- */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(8, 4, 18, 0.62);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-container {
+      width: 100%;
+      max-width: 780px;
+      max-height: 90vh;
+      border-radius: 28px;
+      background: var(--modal-bg);
+      backdrop-filter: blur(40px) saturate(200%);
+      -webkit-backdrop-filter: blur(40px) saturate(200%);
+      border: 1px solid var(--edge);
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateY(20px) scale(0.96);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-backdrop.open .modal-container {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-header {
+      padding: 20px 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--edge-soft);
+    }
+
+    .modal-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 1.35rem;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .close-btn {
+      background: transparent;
+      border: none;
+      color: var(--ink);
+      font-size: 1.5rem;
+      cursor: pointer;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .close-btn:hover,
+    .close-btn:active {
+      background: var(--edge-soft);
+    }
+
+    /* Modal Tabs */
+    .modal-tabs {
+      display: flex;
+      gap: 8px;
+      padding: 12px 26px;
+      background: var(--note-bg);
+      border-bottom: 1px solid var(--edge-soft);
+    }
+
+    .tab-btn {
+      padding: 10px 16px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-soft);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active {
+      background: var(--cloud-solid);
+      color: var(--ink);
+      border-color: var(--edge);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .modal-body {
+      padding: 24px 26px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      flex: 1;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .timings-section-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0 0 14px;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .timing-block {
+      background: var(--note-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--edge-soft);
+      border-radius: 20px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+    }
+
+    .timing-block:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Wallpaper Preset Grid in Modal Tab 3 */
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 540px) {
+      .preset-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .preset-card {
+      height: 84px;
+      border-radius: 16px;
+      border: 2px solid var(--edge-soft);
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      padding: 8px 10px;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .preset-card:hover {
+      transform: translateY(-2px);
+      border-color: #FF5E83;
+      box-shadow: 0 6px 16px rgba(255, 94, 131, 0.3);
+    }
+
+    .preset-card.active {
+      border-color: #FF5E83;
+      box-shadow: 0 0 0 3px rgba(255, 94, 131, 0.4);
+    }
+
+    .preset-card .preset-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      padding: 3px 8px;
+      border-radius: 8px;
+      width: 100%;
+    }
+
+    /* Day Selector Tabs in Modal */
+    .day-selector {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .day-pill-btn {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--input-border);
+      background: var(--input-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      color: var(--text-soft);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .day-pill-btn.active {
+      background: var(--btn-primary);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(255, 94, 131, 0.3);
+    }
+
+    /* Form Fields */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-text);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--input-border);
+      background: var(--input-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      color: var(--ink);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #FF5E83;
+      box-shadow: 0 0 0 3px rgba(255, 94, 131, 0.2);
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 64px;
+    }
+
+    .meal-time-row {
+      display: grid;
+      grid-template-columns: 120px 1fr 1fr;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .meal-time-row .meal-name-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .modal-footer {
+      padding: 16px 26px;
+      border-top: 1px solid var(--edge-soft);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      border-radius: 14px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--btn-primary);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(255, 94, 131, 0.35);
+    }
+
+    .btn-primary:hover,
+    .btn-primary:active {
+      background: var(--btn-primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border-color: var(--input-border);
+      color: var(--ink);
+    }
+
+    .btn-secondary:hover,
+    .btn-secondary:active {
+      background: var(--edge-soft);
+    }
+
+    .btn-danger {
+      background: transparent;
+      color: #FF4D4D;
+      font-size: 0.84rem;
+    }
+
+    .btn-danger:hover {
+      text-decoration: underline;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #10B981;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 2000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* ---- Responsive Media Queries ---- */
+    @media (max-width: 960px) {
+      .week {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap {
+        padding: 16px 14px 60px;
+      }
+
+      header {
+        padding: 12px 16px;
+        margin-bottom: 20px;
+        border-radius: 20px;
+      }
+
+      .brand {
+        font-size: 1.35rem;
+      }
+
+      .datebox {
+        font-size: 0.76rem;
+        padding: 5px 10px;
+      }
+
+      .icon-btn {
+        padding: 8px 12px;
+        font-size: 0.82rem;
+        border-radius: 12px;
+      }
+
+      .hero {
+        margin-bottom: 24px;
+      }
+
+      .dabba {
+        padding: 22px 18px;
+        border-radius: 22px;
+      }
+
+      .dabba-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .dabba-header-left {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .dabba-pill {
+        font-size: 0.7rem;
+        padding: 5px 12px;
+      }
+
+      .meal-heading {
+        font-size: 1.55rem;
+        margin-bottom: 14px;
+      }
+
+      .item-list {
+        gap: 8px;
+        margin-bottom: 20px;
+      }
+
+      .item-list li {
+        font-size: 0.92rem;
+        padding: 8px 14px;
+        border-radius: 12px;
+        width: 100%;
+      }
+
+      .dabba-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding-top: 14px;
+      }
+
+      .meal-window {
+        font-size: 0.8rem;
+        justify-content: space-between;
+      }
+
+      .status-badge {
+        font-size: 0.82rem;
+        justify-content: center;
+        padding: 8px 12px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .section-header {
+        margin: 28px 0 12px;
+      }
+
+      .section-title {
+        font-size: 1.2rem;
+      }
+
+      .section-sub {
+        font-size: 0.82rem;
+      }
+
+      .day-notes {
+        grid-template-columns: 1fr;
+        padding: 14px;
+        gap: 10px;
+        border-radius: 20px;
+      }
+
+      .note-item {
+        padding: 14px 16px;
+        border-radius: 16px;
+      }
+
+      .week {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .day-card {
+        padding: 16px 14px;
+        border-radius: 18px;
+      }
+
+      .modal-backdrop {
+        padding: 0;
+        align-items: flex-end;
+      }
+
+      .modal-container {
+        max-width: 100%;
+        max-height: 92vh;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 24px;
+        border-top-right-radius: 24px;
+      }
+
+      .modal-header {
+        padding: 16px 20px;
+      }
+
+      .modal-tabs {
+        padding: 8px 16px;
+      }
+
+      .tab-btn {
+        flex: 1;
+        text-align: center;
+        padding: 8px 10px;
+        font-size: 0.82rem;
+      }
+
+      .modal-body {
+        padding: 18px 20px;
+      }
+
+      .form-control {
+        font-size: 16px;
+      }
+
+      .meal-time-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .meal-time-row .meal-name-label {
+        grid-column: span 2;
+        margin-bottom: 2px;
+      }
+
+      .modal-footer {
+        flex-direction: column-reverse;
+        align-items: stretch;
+        gap: 10px;
+        padding: 14px 20px;
+      }
+
+      .modal-footer>div {
+        width: 100%;
+        display: flex;
+        gap: 10px;
+      }
+
+      .modal-footer .btn {
+        flex: 1;
+      }
+
+      .btn-danger {
+        text-align: center;
+        padding: 6px;
+      }
+
+      .toast {
+        bottom: 16px;
+        left: 16px;
+        right: 16px;
+        justify-content: center;
+      }
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="wrap">
+  <div class="wrap">
 
-  <header class="glass">
-    <div class="brand">
-      <span class="brand-icon"></span> Mess <span>Menu</span>
-    </div>
-    <div class="header-actions">
-      <div class="datebox" id="dateBox">—</div>
-      <button class="icon-btn" id="openAdminBtn" title="Edit Mess Timings, Menu & Background">
-        ⚙️ <span>Edit</span>
-      </button>
-      <button class="icon-btn icon-only" id="themeToggle" aria-label="Toggle Dark Mode" title="Toggle Light/Dark Theme">
-        🌙
-      </button>
-    </div>
-  </header>
-
-  <div class="hero">
-    <div class="dabba glass">
-      <div class="dabba-top">
-        <div class="dabba-header-left">
-          <span class="dabba-label" id="dabbaLabel">Compartment</span>
-          <span class="schedule-type-badge" id="scheduleTypeBadge">Weekday Schedule</span>
-        </div>
-        <span class="dabba-pill" id="dabbaPill">—</span>
+    <header class="glass">
+      <div class="brand">
+        <span class="brand-icon"></span> Mess <span>Menu</span>
       </div>
-      <div class="meal-heading" id="mealName">—</div>
-      <ul class="item-list" id="itemList"></ul>
-      <div class="dabba-footer">
-        <div class="meal-window" id="mealWindow">
-          🕒 <span>—</span>
+      <div class="header-actions">
+        <div class="datebox" id="dateBox">—</div>
+        <button class="icon-btn" id="openAdminBtn" title="Edit Mess Timings, Menu & Background">
+          ⚙️ <span>Edit</span>
+        </button>
+        <button class="icon-btn icon-only" id="themeToggle" aria-label="Toggle Dark Mode"
+          title="Toggle Light/Dark Theme">
+          🌙
+        </button>
+      </div>
+    </header>
+
+    <div class="hero">
+      <div class="dabba glass">
+        <div class="dabba-top">
+          <div class="dabba-header-left">
+            <span class="dabba-label" id="dabbaLabel">Compartment</span>
+            <span class="schedule-type-badge" id="scheduleTypeBadge">Weekday Schedule</span>
+          </div>
+          <span class="dabba-pill" id="dabbaPill">—</span>
         </div>
-        <div class="status-badge" id="statusLine">
-          <span></span> <span id="statusText">Reading schedule…</span>
+        <div class="meal-heading" id="mealName">—</div>
+        <ul class="item-list" id="itemList"></ul>
+        <div class="dabba-footer">
+          <div class="meal-window" id="mealWindow">
+            🕒 <span>—</span>
+          </div>
+          <div class="status-badge" id="statusLine">
+            <span></span> <span id="statusText">Reading schedule…</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div>
+        <div class="section-title">Rest of Today</div>
+        <div class="section-sub" id="daySub">Today's complete meal schedule</div>
+      </div>
+    </div>
+    <div class="day-notes glass" id="dayNotes"></div>
+
+    <div class="section-header">
+      <div>
+        <div class="section-title">Weekly Mess Schedule</div>
+        <div class="section-sub">Full 7-day food menu overview</div>
+      </div>
+    </div>
+    <div class="week" id="weekGrid"></div>
+
+    <footer>Handcrafted with ❤️ by Bhrigav</footer>
+  </div>
+
+  <!-- Admin Modal Drawer -->
+  <div class="modal-backdrop" id="adminModal">
+    <div class="modal-container glass">
+      <div class="modal-header">
+        <h3 class="modal-title">⚙️ Edit Mess Settings</h3>
+        <button class="close-btn" id="closeAdminBtn" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div class="modal-tabs">
+        <button class="tab-btn active" id="tabTimingsBtn">⏰ Timings</button>
+        <button class="tab-btn" id="tabMenuBtn">🍲 Food Menu</button>
+        <button class="tab-btn" id="tabBgBtn">🖼️ Background</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Tab 1: Timings (Weekdays vs Weekends) -->
+        <div id="tabTimingsContent">
+          <p style="font-size: 0.86rem; color: var(--text-soft); margin-top: 0; margin-bottom: 18px;">
+            Define different serving windows for <b>Weekdays (Mon-Fri)</b> and <b>Weekends (Sat-Sun)</b>.
+          </p>
+
+          <!-- Weekdays Block -->
+          <div class="timing-block">
+            <div class="timings-section-title">💼 Weekday Timings (Monday – Friday)</div>
+            <div id="weekdayTimingsForm"></div>
+          </div>
+
+          <!-- Weekends Block -->
+          <div class="timing-block">
+            <div class="timings-section-title">🎉 Weekend Timings (Saturday & Sunday)</div>
+            <div id="weekendTimingsForm"></div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Menu Items -->
+        <div id="tabMenuContent" style="display: none;">
+          <div class="day-selector" id="modalDaySelector"></div>
+
+          <div id="menuForm">
+            <div class="form-group">
+              <label class="form-label">Breakfast</label>
+              <textarea class="form-control" id="editBreakfast" placeholder="e.g. Mix Paratha + Curd + Tea"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Lunch</label>
+              <textarea class="form-control" id="editLunch" placeholder="e.g. Dal Tadka + Rice + Roti"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Snacks</label>
+              <textarea class="form-control" id="editSnacks" placeholder="e.g. Samosa + Tea"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Dinner</label>
+              <textarea class="form-control" id="editDinner"
+                placeholder="e.g. Kadhai Paneer + Rice + Gulab Jamun"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Background & Glass Theme -->
+        <div id="tabBgContent" style="display: none;">
+          <p style="font-size: 0.86rem; color: var(--text-soft); margin-top: 0; margin-bottom: 16px;">
+            Customize the page wallpaper. Frosted glass cards adapt automatically over any background!
+          </p>
+
+          <div class="form-group">
+            <label class="form-label">Curated Wallpaper Presets</label>
+            <div class="preset-grid">
+              <div class="preset-card" id="presetDefault"
+                style="background: linear-gradient(135deg, #FFD0D6, #C2D5FF);">
+                <span class="preset-title">✨ Gradient</span>
+              </div>
+              <div class="preset-card" id="presetCafe"
+                style="background-image: url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=600&q=80');">
+                <span class="preset-title">☕ Cozy Cafe (Default)</span>
+              </div>
+              <div class="preset-card" id="presetCosmic"
+                style="background-image: url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=600&q=80');">
+                <span class="preset-title">🌌 Dark Cosmic</span>
+              </div>
+              <div class="preset-card" id="presetSunset"
+                style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80');">
+                <span class="preset-title">🌅 Sunset Glow</span>
+              </div>
+              <div class="preset-card" id="presetForest"
+                style="background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=600&q=80');">
+                <span class="preset-title">🌿 Lush Forest</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Upload Custom Image File</label>
+            <input type="file" class="form-control" id="bgFileInput" accept="image/*">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Or Paste Image URL</label>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" class="form-control" id="bgUrlInput"
+                placeholder="https://images.unsplash.com/.../wallpaper.jpg">
+              <button class="btn btn-secondary" id="applyBgUrlBtn">Apply URL</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-danger" id="resetDefaultsBtn">Reset All Defaults</button>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-secondary" id="cancelAdminBtn">Cancel</button>
+          <button class="btn btn-primary" id="saveAdminBtn">Save Changes</button>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="section-header">
-    <div>
-      <div class="section-title">Rest of Today</div>
-      <div class="section-sub" id="daySub">Today's complete meal schedule</div>
-    </div>
-  </div>
-  <div class="day-notes glass" id="dayNotes"></div>
+  <!-- Toast notification -->
+  <div class="toast" id="toastMsg">✓ Changes saved successfully!</div>
 
-  <div class="section-header">
-    <div>
-      <div class="section-title">Weekly Mess Schedule</div>
-      <div class="section-sub">Full 7-day food menu overview</div>
-    </div>
-  </div>
-  <div class="week" id="weekGrid"></div>
+  <script>
+    // Default Master Data
+    const DEFAULT_MENU = {
+      Monday: {
+        Breakfast: "Aloo Paratha + Curd +Butter + Chutney + Tea",
+        Lunch: "Rajmah Raseela + Jeera Aloo + Steamed Rice + Wheat Roti + Boondi Raita + Onion salad / Sirka Onion",
+        Snacks: "Tikki chaat / Samosa +Tea",
+        Dinner: "Moong Masoor Dal + Kadhai Paneer / Butter Paneer Masala + Steamed Rice + Wheat Roti + Rasgulla"
+      },
+      Tuesday: {
+        Breakfast: "Poha + Vegetable Sandwich / Cold Sandwich + Fruit + Tea + Milk",
+        Lunch: "Dal Makhani + Mix Vegetable + Steamed Rice + Wheat Roti + Raita",
+        Snacks: "Patty + Tea",
+        Dinner: "Mah Chana Dal + Aloo Shimla Mirch + Steamed Rice + Wheat Roti + Ice Cream (Cone)"
+      },
+      Wednesday: {
+        Breakfast: "Macaroni + Garlic Bread + Sweet Daliya + Chaat + Tea + Milk",
+        Lunch: "Pindi Channa + Katha Meetha Kadoo / Seasonal Vegetables + Steamed Rice + Wheat Roti + Boondi Raita",
+        Snacks: "Gol gappe / Cake + Katha Metha Pani / Tea",
+        Dinner: "Yellow Dal Tadka + Malai Kofta / Vegetable Nutri Keema + Steamed Rice + Wheat Roti + Salad + Besan ki Burfi + Fryums & Mirchi Ka Achar"
+      },
+      Thursday: {
+        Breakfast: "Ajwain Paratha + Tamater Aloo ki Sabzi + Curd + Butter + Tea",
+        Lunch: "Kadhi + Aloo Mutter Dry + Steamed Rice + Wheat Roti + Onion Salad",
+        Snacks: "Nacho Chips + Tea",
+        Dinner: "Moong Saboot Dal + Mix Vegetables / Kadhai Mushroom / Mushrrom Do Pyaz + Steamed Rice + Wheat Roti + Papad + Halwa"
+      },
+      Friday: {
+        Breakfast: "Pav Bhaji + Bread Toast & Jam + Tea + Fruit",
+        Lunch: "Black Chana + Aloo Methi Dry / Chinese Nutri + Wheat Roti + Steamed Rice + Raita",
+        Snacks: "Namkeen / Pastry + Tea",
+        Dinner: "Saboot Masoor Dal + Paneer Preparation / Egg Curry + Steamed Rice + Wheat Roti + Gulab Jamun"
+      },
+      Saturday: {
+        Breakfast: "Mix Parantha / Curd / Chutney / Tea + (OR)South Indian Delicacy + (OR)Choco Flakes With Milk / Hot Sandwich / Tea",
+        Lunch: "Saboot Mix Dal + Tawa Soya Chaap + Steamed Rice + Wheat Roti + Raita",
+        Snacks: "Vegetable Pasta + Cold Coffee",
+        Dinner: "Amritsari Dal + Chilli Potato + Wheat Roti + Steamed Rice + Chutney + Laddo"
+      },
+      Sunday: {
+        Breakfast: "Sunday Special Poori + Aloo Bhaji + Tea",
+        Lunch: "White Channa + Roti Kulcha + Vegetable Jalfrezi + Wheat Roti + Steamed Rice + Boondi Raita / Sunday Special (Chinese) Masala Chaas",
+        Snacks: "Biscuits + Tea",
+        Dinner: "Mix Dal + Aloo Nutri / Ghiya Masala + Steamed Rice + Wheat Roti + Gulab Jamun"
+      },
+    };
 
-  <footer>Times based on customized mess serving windows · automatically adapts for Weekdays and Weekends</footer>
-</div>
-
-<!-- Admin Modal Drawer -->
-<div class="modal-backdrop" id="adminModal">
-  <div class="modal-container glass">
-    <div class="modal-header">
-      <h3 class="modal-title">⚙️ Edit Mess Settings</h3>
-      <button class="close-btn" id="closeAdminBtn" aria-label="Close modal">&times;</button>
-    </div>
-
-    <div class="modal-tabs">
-      <button class="tab-btn active" id="tabTimingsBtn">⏰ Timings</button>
-      <button class="tab-btn" id="tabMenuBtn">🍲 Food Menu</button>
-      <button class="tab-btn" id="tabBgBtn">🖼️ Background</button>
-    </div>
-
-    <div class="modal-body">
-      <!-- Tab 1: Timings (Weekdays vs Weekends) -->
-      <div id="tabTimingsContent">
-        <p style="font-size: 0.86rem; color: var(--text-soft); margin-top: 0; margin-bottom: 18px;">
-          Define different serving windows for <b>Weekdays (Mon-Fri)</b> and <b>Weekends (Sat-Sun)</b>.
-        </p>
-
-        <!-- Weekdays Block -->
-        <div class="timing-block">
-          <div class="timings-section-title">💼 Weekday Timings (Monday – Friday)</div>
-          <div id="weekdayTimingsForm"></div>
-        </div>
-
-        <!-- Weekends Block -->
-        <div class="timing-block">
-          <div class="timings-section-title">🎉 Weekend Timings (Saturday & Sunday)</div>
-          <div id="weekendTimingsForm"></div>
-        </div>
-      </div>
-
-      <!-- Tab 2: Menu Items -->
-      <div id="tabMenuContent" style="display: none;">
-        <div class="day-selector" id="modalDaySelector"></div>
-
-        <div id="menuForm">
-          <div class="form-group">
-            <label class="form-label">Breakfast</label>
-            <textarea class="form-control" id="editBreakfast" placeholder="e.g. Mix Paratha + Curd + Tea"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Lunch</label>
-            <textarea class="form-control" id="editLunch" placeholder="e.g. Dal Tadka + Rice + Roti"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Snacks</label>
-            <textarea class="form-control" id="editSnacks" placeholder="e.g. Samosa + Tea"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Dinner</label>
-            <textarea class="form-control" id="editDinner" placeholder="e.g. Kadhai Paneer + Rice + Gulab Jamun"></textarea>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tab 3: Background & Glass Theme -->
-      <div id="tabBgContent" style="display: none;">
-        <p style="font-size: 0.86rem; color: var(--text-soft); margin-top: 0; margin-bottom: 16px;">
-          Customize the page wallpaper. Frosted glass cards adapt automatically over any background!
-        </p>
-
-        <div class="form-group">
-          <label class="form-label">Curated Wallpaper Presets</label>
-          <div class="preset-grid">
-            <div class="preset-card" id="presetDefault" style="background: linear-gradient(135deg, #FFD0D6, #C2D5FF);">
-              <span class="preset-title">✨ Gradient Default</span>
-            </div>
-            <div class="preset-card" id="presetCafe" style="background-image: url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=600&q=80');">
-              <span class="preset-title">☕ Cozy Cafe</span>
-            </div>
-            <div class="preset-card" id="presetCosmic" style="background-image: url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=600&q=80');">
-              <span class="preset-title">🌌 Dark Cosmic</span>
-            </div>
-            <div class="preset-card" id="presetSunset" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80');">
-              <span class="preset-title">🌅 Sunset Glow</span>
-            </div>
-            <div class="preset-card" id="presetForest" style="background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=600&q=80');">
-              <span class="preset-title">🌿 Lush Forest</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Upload Custom Image File</label>
-          <input type="file" class="form-control" id="bgFileInput" accept="image/*">
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Or Paste Image URL</label>
-          <div style="display: flex; gap: 8px;">
-            <input type="text" class="form-control" id="bgUrlInput" placeholder="https://images.unsplash.com/.../wallpaper.jpg">
-            <button class="btn btn-secondary" id="applyBgUrlBtn">Apply URL</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="modal-footer">
-      <button class="btn btn-danger" id="resetDefaultsBtn">Reset All Defaults</button>
-      <div style="display: flex; gap: 10px;">
-        <button class="btn btn-secondary" id="cancelAdminBtn">Cancel</button>
-        <button class="btn btn-primary" id="saveAdminBtn">Save Changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Toast notification -->
-<div class="toast" id="toastMsg">✓ Changes saved successfully!</div>
-
-<script>
-// Default Master Data
-const DEFAULT_MENU = {
-  Monday:    { 
-    Breakfast: "Aloo Paratha + Curd +Butter + Chutney + Tea", 
-    Lunch: "Rajmah Raseela + Jeera Aloo + Steamed Rice + Wheat Roti + Boondi Raita + Onion salad / Sirka Onion", 
-    Snacks: "Tikki chaat / Samosa +Tea", 
-    Dinner: "Moong Masoor Dal + Kadhai Paneer / Butter Paneer Masala + Steamed Rice + Wheat Roti + Rasgulla" 
-  },
-  Tuesday:   { 
-    Breakfast: "Poha + Vegetable Sandwich / Cold Sandwich + Fruit + Tea + Milk", 
-    Lunch: "Dal Makhani + Mix Vegetable + Steamed Rice + Wheat Roti + Raita", 
-    Snacks: "Patty + Tea", 
-    Dinner: "Mah Chana Dal + Aloo Shimla Mirch + Steamed Rice + Wheat Roti + Ice Cream (Cone)" 
-  },
-  Wednesday: { 
-    Breakfast: "Macaroni + Garlic Bread + Sweet Daliya + Chaat + Tea + Milk", 
-    Lunch: "Pindi Channa + Katha Meetha Kadoo / Seasonal Vegetables + Steamed Rice + Wheat Roti + Boondi Raita", 
-    Snacks: "Gol gappe / Cake + Katha Metha Pani / Tea", 
-    Dinner: "Yellow Dal Tadka + Malai Kofta / Vegetable Nutri Keema + Steamed Rice + Wheat Roti + Salad + Besan ki Burfi + Fryums & Mirchi Ka Achar" 
-  },
-  Thursday:  { 
-    Breakfast: "Ajwain Paratha + Tamater Aloo ki Sabzi + Curd + Butter + Tea", 
-    Lunch: "Kadhi + Aloo Mutter Dry + Steamed Rice + Wheat Roti + Onion Salad", 
-    Snacks: "Nacho Chips + Tea", 
-    Dinner: "Moong Saboot Dal + Mix Vegetables / Kadhai Mushroom / Mushrrom Do Pyaz + Steamed Rice + Wheat Roti + Papad + Halwa" 
-  },
-  Friday:    { 
-    Breakfast: "Pav Bhaji + Bread Toast & Jam + Tea + Fruit", 
-    Lunch: "Black Chana + Aloo Methi Dry / Chinese Nutri + Wheat Roti + Steamed Rice + Raita", 
-    Snacks: "Namkeen / Pastry + Tea", 
-    Dinner: "Saboot Masoor Dal + Paneer Preparation / Egg Curry + Steamed Rice + Wheat Roti + Gulab Jamun" 
-  },
-  Saturday:  { 
-    Breakfast: "Mix Parantha / Curd / Chutney / Tea + (OR)South Indian Delicacy + (OR)Choco Flakes With Milk / Hot Sandwich / Tea", 
-    Lunch: "Saboot Mix Dal + Tawa Soya Chaap + Steamed Rice + Wheat Roti + Raita", 
-    Snacks: "Vegetable Pasta + Cold Coffee", 
-    Dinner: "Amritsari Dal + Chilli Potato + Wheat Roti + Steamed Rice + Chutney + Laddo" 
-  },
-  Sunday:    { 
-    Breakfast: "Sunday Special Poori + Aloo Bhaji + Tea", 
-    Lunch: "White Channa + Roti Kulcha + Vegetable Jalfrezi + Wheat Roti + Steamed Rice + Boondi Raita / Sunday Special (Chinese) Masala Chaas", 
-    Snacks: "Biscuits + Tea", 
-    Dinner: "Mix Dal + Aloo Nutri / Ghiya Masala + Steamed Rice + Wheat Roti + Gulab Jamun" 
-  },
-};
-
-const DEFAULT_WINDOWS = {
+    const DEFAULT_WINDOWS = {
       weekdays: [
         { key: "Breakfast", start: 7 * 60 + 30, end: 10 * 60 },
         { key: "Lunch", start: 12 * 60, end: 14 * 60 + 30 },
@@ -1225,210 +1359,213 @@ const DEFAULT_WINDOWS = {
         { key: "Dinner", start: 19 * 60 + 30, end: 21 * 60 },
       ]
     };
+    const PRESET_WALLPAPERS = {
+      default: "none",
+      cafe: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1600&q=80",
+      cosmic: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=1600&q=80",
+      sunset: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1600&q=80",
+      forest: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1600&q=80"
+    };
 
-const PRESET_WALLPAPERS = {
-  default: "none",
-  cafe: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1600&q=80",
-  cosmic: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=1600&q=80",
-  sunset: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1600&q=80",
-  forest: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1600&q=80"
-};
+    const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-const DAY_NAMES = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    // Application State Initializer
+    let MENU = JSON.parse(localStorage.getItem('mess_menu_v3')) || JSON.parse(JSON.stringify(DEFAULT_MENU));
+    let WINDOWS = JSON.parse(localStorage.getItem('mess_windows_v3'));
+    let bgImage = localStorage.getItem('mess_bg_image_v1') || PRESET_WALLPAPERS.cafe;
 
-// Application State Initializer
-let MENU = JSON.parse(localStorage.getItem('mess_menu_v3')) || JSON.parse(JSON.stringify(DEFAULT_MENU));
-let WINDOWS = JSON.parse(localStorage.getItem('mess_windows_v3'));
-let bgImage = localStorage.getItem('mess_bg_image_v1') || "none";
-
-if (!WINDOWS || Array.isArray(WINDOWS) || !WINDOWS.weekdays || !WINDOWS.weekends) {
-  WINDOWS = JSON.parse(JSON.stringify(DEFAULT_WINDOWS));
-}
-
-let selectedModalDay = "Monday";
-
-// Apply Background Image Logic
-function applyBgImage(urlVal) {
-  bgImage = urlVal || "none";
-  if (bgImage && bgImage !== "none") {
-    document.body.style.backgroundImage = `url("${bgImage}")`;
-  } else {
-    document.body.style.backgroundImage = "";
-  }
-}
-applyBgImage(bgImage);
-
-// Dark Mode Handling
-const toggleBtn = document.getElementById('themeToggle');
-const rootElement = document.documentElement;
-
-if (localStorage.getItem('theme') === 'dark') {
-  rootElement.setAttribute('data-theme', 'dark');
-  toggleBtn.textContent = '☀️';
-}
-
-toggleBtn.addEventListener('click', () => {
-  if (rootElement.getAttribute('data-theme') === 'dark') {
-    rootElement.removeAttribute('data-theme');
-    localStorage.setItem('theme', 'light');
-    toggleBtn.textContent = '🌙';
-  } else {
-    rootElement.setAttribute('data-theme', 'dark');
-    localStorage.setItem('theme', 'dark');
-    toggleBtn.textContent = '☀️';
-  }
-});
-
-// Helper Functions
-function minsToHHMM(mins) {
-  let h = Math.floor(mins / 60);
-  let m = mins % 60;
-  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
-}
-
-function hhmmToMins(str) {
-  if(!str) return 0;
-  const [h, m] = str.split(':').map(Number);
-  return (h || 0) * 60 + (m || 0);
-}
-
-function fmtTime(mins) {
-  let h = Math.floor(mins / 60), m = mins % 60;
-  const ap = h >= 12 ? "PM" : "AM";
-  let h12 = h % 12; if (h12 === 0) h12 = 12;
-  return `${h12}:${String(m).padStart(2, "0")} ${ap}`;
-}
-
-function splitItems(str) {
-  if (!str) return [];
-  return str.split(/\s*(?:\+|\&)\s*/).filter(Boolean);
-}
-
-function formatCountdown(minsDiff) {
-  if (minsDiff <= 0) return "now";
-  const h = Math.floor(minsDiff / 60);
-  const m = minsDiff % 60;
-  if (h > 0) return `${h}h ${m}m`;
-  return `${m}m`;
-}
-
-function isWeekend(dayIndex) {
-  return dayIndex === 0 || dayIndex === 6;
-}
-
-function getDayWindows(dayIndex) {
-  return isWeekend(dayIndex) ? WINDOWS.weekends : WINDOWS.weekdays;
-}
-
-function showToast(msg) {
-  const toast = document.getElementById("toastMsg");
-  toast.textContent = "✓ " + msg;
-  toast.classList.add("show");
-  setTimeout(() => toast.classList.remove("show"), 3000);
-}
-
-// Main Render Logic
-function render() {
-  const now = new Date();
-  const dayIndex = now.getDay();
-  const dayName = DAY_NAMES[dayIndex];
-  const nowMins = now.getHours() * 60 + now.getMinutes();
-  const menu = MENU[dayName] || DEFAULT_MENU[dayName];
-  const dayWindows = getDayWindows(dayIndex);
-  const isWknd = isWeekend(dayIndex);
-
-  document.getElementById("dateBox").textContent =
-    now.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
-  
-  document.getElementById("scheduleTypeBadge").textContent = isWknd ? "🎉 Weekend" : "💼 Weekday";
-
-  let current = null, next = null, nextTomorrow = false;
-  for (const w of dayWindows) {
-    if (nowMins >= w.start && nowMins <= w.end) { current = w; break; }
-  }
-  if (!current) {
-    next = dayWindows.find(w => w.start > nowMins) || null;
-    if (!next) {
-      const tomorrowIndex = (dayIndex + 1) % 7;
-      const tomorrowWindows = getDayWindows(tomorrowIndex);
-      next = tomorrowWindows[0];
-      nextTomorrow = true;
+    if (!WINDOWS || Array.isArray(WINDOWS) || !WINDOWS.weekdays || !WINDOWS.weekends) {
+      WINDOWS = JSON.parse(JSON.stringify(DEFAULT_WINDOWS));
     }
-  }
 
-  const active = current || next;
-  const activeDayIndex = nextTomorrow ? (dayIndex + 1) % 7 : dayIndex;
-  const activeDayName = DAY_NAMES[activeDayIndex];
-  const activeDayMenu = MENU[activeDayName] || DEFAULT_MENU[activeDayName];
+    let selectedModalDay = "Monday";
 
-  document.getElementById("dabbaLabel").textContent = current ? `Serving Now · ${dayName}` : `Up Next · ${activeDayName}`;
-  document.getElementById("dabbaPill").textContent = current ? "🟢 Active" : "⏱ Upcoming";
-  document.getElementById("dabbaPill").className = "dabba-pill" + (current ? "" : " upcoming");
-  
-  document.getElementById("mealName").textContent =
-    `${active.key}${nextTomorrow ? " (" + activeDayName + ")" : ""}`;
+    // Apply Background Image Logic
+    function applyBgImage(urlVal) {
+      bgImage = urlVal || PRESET_WALLPAPERS.cafe;
+      if (bgImage && bgImage !== "none") {
+        document.body.style.backgroundImage = `url("${bgImage}")`;
+      } else {
+        document.body.style.backgroundImage = "";
+      }
+    }
+    applyBgImage(bgImage);
 
-  // Populate active meal items
-  const itemListEl = document.getElementById("itemList");
-  itemListEl.innerHTML = "";
-  const itemsStr = activeDayMenu ? activeDayMenu[active.key] : "";
-  splitItems(itemsStr).forEach(item => {
-    const li = document.createElement("li");
-    li.textContent = item;
-    itemListEl.appendChild(li);
-  });
+    // Dark Mode Handling
+    const toggleBtn = document.getElementById('themeToggle');
+    const rootElement = document.documentElement;
 
-  document.getElementById("mealWindow").innerHTML =
-    `🕒 Serving window: ${fmtTime(active.start)} – ${fmtTime(active.end)}`;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'dark') {
+      rootElement.setAttribute('data-theme', 'dark');
+      toggleBtn.textContent = '☀️';
+    } else {
+      rootElement.removeAttribute('data-theme');
+      toggleBtn.textContent = '🌙';
+    }
 
-  // Status & end time badge inside serving now card
-  const statusTextEl = document.getElementById("statusText");
-  if (current) {
-    const rem = current.end - nowMins;
-    statusTextEl.textContent = `${current.key} in progress · Ends in ${formatCountdown(rem)}`;
-  } else if (next) {
-    let diff = next.start - nowMins;
-    if (nextTomorrow) diff += 24 * 60;
-    statusTextEl.textContent = `Next: ${next.key}${nextTomorrow ? " (Tomorrow)" : ""} in ${formatCountdown(diff)}`;
-  }
+    toggleBtn.addEventListener('click', () => {
+      if (rootElement.getAttribute('data-theme') === 'dark') {
+        rootElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        toggleBtn.textContent = '🌙';
+      } else {
+        rootElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        toggleBtn.textContent = '☀️';
+      }
+    });
 
-  // Render Rest of Today Notes
-  const notesEl = document.getElementById("dayNotes");
-  notesEl.innerHTML = "";
-  document.getElementById("daySub").textContent = `${dayName}'s full meal spread (${isWknd ? 'Weekend' : 'Weekday'} timings)`;
-  
-  dayWindows.forEach(w => {
-    const div = document.createElement("div");
-    div.className = "note-item" + (current && current.key === w.key ? " active" : "");
-    div.innerHTML = `
+    // Helper Functions
+    function minsToHHMM(mins) {
+      let h = Math.floor(mins / 60);
+      let m = mins % 60;
+      return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+    }
+
+    function hhmmToMins(str) {
+      if (!str) return 0;
+      const [h, m] = str.split(':').map(Number);
+      return (h || 0) * 60 + (m || 0);
+    }
+
+    function fmtTime(mins) {
+      let h = Math.floor(mins / 60), m = mins % 60;
+      const ap = h >= 12 ? "PM" : "AM";
+      let h12 = h % 12; if (h12 === 0) h12 = 12;
+      return `${h12}:${String(m).padStart(2, "0")} ${ap}`;
+    }
+
+    function splitItems(str) {
+      if (!str) return [];
+      return str.split(/\s*(?:\+|\&)\s*/).filter(Boolean);
+    }
+
+    function formatCountdown(minsDiff) {
+      if (minsDiff <= 0) return "now";
+      const h = Math.floor(minsDiff / 60);
+      const m = minsDiff % 60;
+      if (h > 0) return `${h}h ${m}m`;
+      return `${m}m`;
+    }
+
+    function isWeekend(dayIndex) {
+      return dayIndex === 0 || dayIndex === 6;
+    }
+
+    function getDayWindows(dayIndex) {
+      return isWeekend(dayIndex) ? WINDOWS.weekends : WINDOWS.weekdays;
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById("toastMsg");
+      toast.textContent = "✓ " + msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 3000);
+    }
+
+    // Main Render Logic
+    function render() {
+      const now = new Date();
+      const dayIndex = now.getDay();
+      const dayName = DAY_NAMES[dayIndex];
+      const nowMins = now.getHours() * 60 + now.getMinutes();
+      const menu = MENU[dayName] || DEFAULT_MENU[dayName];
+      const dayWindows = getDayWindows(dayIndex);
+      const isWknd = isWeekend(dayIndex);
+
+      document.getElementById("dateBox").textContent =
+        now.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+
+      document.getElementById("scheduleTypeBadge").textContent = isWknd ? "🎉 Weekend" : "💼 Weekday";
+
+      let current = null, next = null, nextTomorrow = false;
+      for (const w of dayWindows) {
+        if (nowMins >= w.start && nowMins <= w.end) { current = w; break; }
+      }
+      if (!current) {
+        next = dayWindows.find(w => w.start > nowMins) || null;
+        if (!next) {
+          const tomorrowIndex = (dayIndex + 1) % 7;
+          const tomorrowWindows = getDayWindows(tomorrowIndex);
+          next = tomorrowWindows[0];
+          nextTomorrow = true;
+        }
+      }
+
+      const active = current || next;
+      const activeDayIndex = nextTomorrow ? (dayIndex + 1) % 7 : dayIndex;
+      const activeDayName = DAY_NAMES[activeDayIndex];
+      const activeDayMenu = MENU[activeDayName] || DEFAULT_MENU[activeDayName];
+
+      document.getElementById("dabbaLabel").textContent = current ? `Serving Now · ${dayName}` : `Up Next · ${activeDayName}`;
+      document.getElementById("dabbaPill").textContent = current ? "🟢 Active" : "⏱ Upcoming";
+      document.getElementById("dabbaPill").className = "dabba-pill" + (current ? "" : " upcoming");
+
+      document.getElementById("mealName").textContent =
+        `${active.key}${nextTomorrow ? " (" + activeDayName + ")" : ""}`;
+
+      // Populate active meal items
+      const itemListEl = document.getElementById("itemList");
+      itemListEl.innerHTML = "";
+      const itemsStr = activeDayMenu ? activeDayMenu[active.key] : "";
+      splitItems(itemsStr).forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        itemListEl.appendChild(li);
+      });
+
+      document.getElementById("mealWindow").innerHTML =
+        `🕒 Serving window: ${fmtTime(active.start)} – ${fmtTime(active.end)}`;
+
+      // Status & end time badge inside serving now card
+      const statusTextEl = document.getElementById("statusText");
+      if (current) {
+        const rem = current.end - nowMins;
+        statusTextEl.textContent = `${current.key} in progress · Ends in ${formatCountdown(rem)}`;
+      } else if (next) {
+        let diff = next.start - nowMins;
+        if (nextTomorrow) diff += 24 * 60;
+        statusTextEl.textContent = `Next: ${next.key}${nextTomorrow ? " (Tomorrow)" : ""} in ${formatCountdown(diff)}`;
+      }
+
+      // Render Rest of Today Notes
+      const notesEl = document.getElementById("dayNotes");
+      notesEl.innerHTML = "";
+      document.getElementById("daySub").textContent = `${dayName}'s full meal spread (${isWknd ? 'Weekend' : 'Weekday'} timings)`;
+
+      dayWindows.forEach(w => {
+        const div = document.createElement("div");
+        div.className = "note-item" + (current && current.key === w.key ? " active" : "");
+        div.innerHTML = `
       <span class="k">
         <span>${w.key}</span>
         <span class="time-tag">${fmtTime(w.start)} - ${fmtTime(w.end)}</span>
       </span>
       <span class="v">${menu[w.key] || "No item specified"}</span>
     `;
-    notesEl.appendChild(div);
-  });
+        notesEl.appendChild(div);
+      });
 
-  // Render 7-day Week Grid
-  const weekEl = document.getElementById("weekGrid");
-  weekEl.innerHTML = "";
-  
-  DAY_NAMES.forEach((d, idx) => {
-    const m = MENU[d] || DEFAULT_MENU[d];
-    const isDayWknd = isWeekend(idx);
-    const dWins = isDayWknd ? WINDOWS.weekends : WINDOWS.weekdays;
-    
-    const getWinStr = (key) => {
-      const win = dWins.find(w => w.key === key);
-      return win ? ` <span style="font-size:0.6rem; opacity:0.75; text-transform:none;">(${fmtTime(win.start)})</span>` : '';
-    };
+      // Render 7-day Week Grid
+      const weekEl = document.getElementById("weekGrid");
+      weekEl.innerHTML = "";
 
-    const card = document.createElement("div");
-    card.className = "day-card glass" + (d === dayName ? " today" : "");
-    card.innerHTML = `
+      DAY_NAMES.forEach((d, idx) => {
+        const m = MENU[d] || DEFAULT_MENU[d];
+        const isDayWknd = isWeekend(idx);
+        const dWins = isDayWknd ? WINDOWS.weekends : WINDOWS.weekdays;
+
+        const getWinStr = (key) => {
+          const win = dWins.find(w => w.key === key);
+          return win ? ` <span style="font-size:0.6rem; opacity:0.75; text-transform:none;">(${fmtTime(win.start)})</span>` : '';
+        };
+
+        const card = document.createElement("div");
+        card.className = "day-card glass" + (d === dayName ? " today" : "");
+        card.innerHTML = `
       <div class="dname">
-        <div>${d} <span style="font-size:0.65rem; font-weight:500; opacity:0.7;">${isDayWknd ? 'Wknd' : 'Wkday'}</span></div>
+        <div>${d} <span style="font-size:0.65rem; font-weight:500; opacity:0.7;">${isDayWknd ? 'Weekend' : 'Weekday'}</span></div>
         ${d === dayName ? '<span class="today-dot"></span>' : ''}
       </div>
       <div class="row"><b>Breakfast${getWinStr('Breakfast')}</b>${m.Breakfast || '—'}</div>
@@ -1436,125 +1573,125 @@ function render() {
       <div class="row"><b>Snacks${getWinStr('Snacks')}</b>${m.Snacks || '—'}</div>
       <div class="row"><b>Dinner${getWinStr('Dinner')}</b>${m.Dinner || '—'}</div>
     `;
-    weekEl.appendChild(card);
-  });
-}
-
-// Modal Admin Logic
-const adminModal = document.getElementById("adminModal");
-const openAdminBtn = document.getElementById("openAdminBtn");
-const closeAdminBtn = document.getElementById("closeAdminBtn");
-const cancelAdminBtn = document.getElementById("cancelAdminBtn");
-const saveAdminBtn = document.getElementById("saveAdminBtn");
-const resetDefaultsBtn = document.getElementById("resetDefaultsBtn");
-
-const tabTimingsBtn = document.getElementById("tabTimingsBtn");
-const tabMenuBtn = document.getElementById("tabMenuBtn");
-const tabBgBtn = document.getElementById("tabBgBtn");
-
-const tabTimingsContent = document.getElementById("tabTimingsContent");
-const tabMenuContent = document.getElementById("tabMenuContent");
-const tabBgContent = document.getElementById("tabBgContent");
-
-const bgFileInput = document.getElementById("bgFileInput");
-const bgUrlInput = document.getElementById("bgUrlInput");
-const applyBgUrlBtn = document.getElementById("applyBgUrlBtn");
-
-openAdminBtn.addEventListener("click", () => {
-  populateAdminForm();
-  adminModal.classList.add("open");
-});
-
-function closeModal() {
-  adminModal.classList.remove("open");
-}
-
-closeAdminBtn.addEventListener("click", closeModal);
-cancelAdminBtn.addEventListener("click", closeModal);
-adminModal.addEventListener("click", (e) => {
-  if (e.target === adminModal) closeModal();
-});
-
-// Tab Switcher
-tabTimingsBtn.addEventListener("click", () => {
-  tabTimingsBtn.classList.add("active");
-  tabMenuBtn.classList.remove("active");
-  tabBgBtn.classList.remove("active");
-  tabTimingsContent.style.display = "block";
-  tabMenuContent.style.display = "none";
-  tabBgContent.style.display = "none";
-});
-
-tabMenuBtn.addEventListener("click", () => {
-  tabMenuBtn.classList.add("active");
-  tabTimingsBtn.classList.remove("active");
-  tabBgBtn.classList.remove("active");
-  tabMenuContent.style.display = "block";
-  tabTimingsContent.style.display = "none";
-  tabBgContent.style.display = "none";
-});
-
-tabBgBtn.addEventListener("click", () => {
-  tabBgBtn.classList.add("active");
-  tabTimingsBtn.classList.remove("active");
-  tabMenuBtn.classList.remove("active");
-  tabBgContent.style.display = "block";
-  tabTimingsContent.style.display = "none";
-  tabMenuContent.style.display = "none";
-});
-
-// Wallpaper Preset Selector Buttons
-document.getElementById("presetDefault").addEventListener("click", () => selectPreset("default"));
-document.getElementById("presetCafe").addEventListener("click", () => selectPreset("cafe"));
-document.getElementById("presetCosmic").addEventListener("click", () => selectPreset("cosmic"));
-document.getElementById("presetSunset").addEventListener("click", () => selectPreset("sunset"));
-document.getElementById("presetForest").addEventListener("click", () => selectPreset("forest"));
-
-function selectPreset(name) {
-  const urlVal = PRESET_WALLPAPERS[name] || "none";
-  applyBgImage(urlVal);
-  highlightPreset(name);
-  showToast(`Applied ${name} wallpaper preset!`);
-}
-
-function highlightPreset(name) {
-  document.querySelectorAll(".preset-card").forEach(c => c.classList.remove("active"));
-  const el = document.getElementById("preset" + name.charAt(0).toUpperCase() + name.slice(1));
-  if (el) el.classList.add("active");
-}
-
-// Background File Upload Logic
-bgFileInput.addEventListener("change", (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    if (file.size > 4 * 1024 * 1024) {
-      alert("File size too large. Please select an image under 4MB.");
-      return;
+        weekEl.appendChild(card);
+      });
     }
-    const reader = new FileReader();
-    reader.onload = function(evt) {
-      const dataUrl = evt.target.result;
-      applyBgImage(dataUrl);
-      showToast("Custom background image uploaded!");
-    };
-    reader.readAsDataURL(file);
-  }
-});
 
-// Background URL Apply Logic
-applyBgUrlBtn.addEventListener("click", () => {
-  const urlVal = bgUrlInput.value.trim();
-  if (urlVal) {
-    applyBgImage(urlVal);
-    showToast("Background image URL applied!");
-  }
-});
+    // Modal Admin Logic
+    const adminModal = document.getElementById("adminModal");
+    const openAdminBtn = document.getElementById("openAdminBtn");
+    const closeAdminBtn = document.getElementById("closeAdminBtn");
+    const cancelAdminBtn = document.getElementById("cancelAdminBtn");
+    const saveAdminBtn = document.getElementById("saveAdminBtn");
+    const resetDefaultsBtn = document.getElementById("resetDefaultsBtn");
 
-// Helper to render timing input rows
-function buildTimingRowsContainer(windowsArray, prefix) {
-  let html = "";
-  windowsArray.forEach((w, idx) => {
-    html += `
+    const tabTimingsBtn = document.getElementById("tabTimingsBtn");
+    const tabMenuBtn = document.getElementById("tabMenuBtn");
+    const tabBgBtn = document.getElementById("tabBgBtn");
+
+    const tabTimingsContent = document.getElementById("tabTimingsContent");
+    const tabMenuContent = document.getElementById("tabMenuContent");
+    const tabBgContent = document.getElementById("tabBgContent");
+
+    const bgFileInput = document.getElementById("bgFileInput");
+    const bgUrlInput = document.getElementById("bgUrlInput");
+    const applyBgUrlBtn = document.getElementById("applyBgUrlBtn");
+
+    openAdminBtn.addEventListener("click", () => {
+      populateAdminForm();
+      adminModal.classList.add("open");
+    });
+
+    function closeModal() {
+      adminModal.classList.remove("open");
+    }
+
+    closeAdminBtn.addEventListener("click", closeModal);
+    cancelAdminBtn.addEventListener("click", closeModal);
+    adminModal.addEventListener("click", (e) => {
+      if (e.target === adminModal) closeModal();
+    });
+
+    // Tab Switcher
+    tabTimingsBtn.addEventListener("click", () => {
+      tabTimingsBtn.classList.add("active");
+      tabMenuBtn.classList.remove("active");
+      tabBgBtn.classList.remove("active");
+      tabTimingsContent.style.display = "block";
+      tabMenuContent.style.display = "none";
+      tabBgContent.style.display = "none";
+    });
+
+    tabMenuBtn.addEventListener("click", () => {
+      tabMenuBtn.classList.add("active");
+      tabTimingsBtn.classList.remove("active");
+      tabBgBtn.classList.remove("active");
+      tabMenuContent.style.display = "block";
+      tabTimingsContent.style.display = "none";
+      tabBgContent.style.display = "none";
+    });
+
+    tabBgBtn.addEventListener("click", () => {
+      tabBgBtn.classList.add("active");
+      tabTimingsBtn.classList.remove("active");
+      tabMenuBtn.classList.remove("active");
+      tabBgContent.style.display = "block";
+      tabTimingsContent.style.display = "none";
+      tabMenuContent.style.display = "none";
+    });
+
+    // Wallpaper Preset Selector Buttons
+    document.getElementById("presetDefault").addEventListener("click", () => selectPreset("default"));
+    document.getElementById("presetCafe").addEventListener("click", () => selectPreset("cafe"));
+    document.getElementById("presetCosmic").addEventListener("click", () => selectPreset("cosmic"));
+    document.getElementById("presetSunset").addEventListener("click", () => selectPreset("sunset"));
+    document.getElementById("presetForest").addEventListener("click", () => selectPreset("forest"));
+
+    function selectPreset(name) {
+      const urlVal = PRESET_WALLPAPERS[name] || "none";
+      applyBgImage(urlVal);
+      highlightPreset(name);
+      showToast(`Applied ${name} wallpaper preset!`);
+    }
+
+    function highlightPreset(name) {
+      document.querySelectorAll(".preset-card").forEach(c => c.classList.remove("active"));
+      const el = document.getElementById("preset" + name.charAt(0).toUpperCase() + name.slice(1));
+      if (el) el.classList.add("active");
+    }
+
+    // Background File Upload Logic
+    bgFileInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        if (file.size > 4 * 1024 * 1024) {
+          alert("File size too large. Please select an image under 4MB.");
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = function (evt) {
+          const dataUrl = evt.target.result;
+          applyBgImage(dataUrl);
+          showToast("Custom background image uploaded!");
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Background URL Apply Logic
+    applyBgUrlBtn.addEventListener("click", () => {
+      const urlVal = bgUrlInput.value.trim();
+      if (urlVal) {
+        applyBgImage(urlVal);
+        showToast("Background image URL applied!");
+      }
+    });
+
+    // Helper to render timing input rows
+    function buildTimingRowsContainer(windowsArray, prefix) {
+      let html = "";
+      windowsArray.forEach((w, idx) => {
+        html += `
       <div class="meal-time-row">
         <div class="meal-name-label">${w.key}</div>
         <div>
@@ -1567,106 +1704,107 @@ function buildTimingRowsContainer(windowsArray, prefix) {
         </div>
       </div>
     `;
-  });
-  return html;
-}
+      });
+      return html;
+    }
 
-// Populate Timings & Menu Forms
-function populateAdminForm() {
-  // 1. Weekday Timings Form
-  document.getElementById("weekdayTimingsForm").innerHTML =
-    buildTimingRowsContainer(WINDOWS.weekdays, "wkday");
+    // Populate Timings & Menu Forms
+    function populateAdminForm() {
+      // 1. Weekday Timings Form
+      document.getElementById("weekdayTimingsForm").innerHTML =
+        buildTimingRowsContainer(WINDOWS.weekdays, "weekday");
 
-  // 2. Weekend Timings Form
-  document.getElementById("weekendTimingsForm").innerHTML =
-    buildTimingRowsContainer(WINDOWS.weekends, "wknd");
+      // 2. Weekend Timings Form
+      document.getElementById("weekendTimingsForm").innerHTML =
+        buildTimingRowsContainer(WINDOWS.weekends, "weekend");
 
-  // 3. Day Selector Pills
-  const daySelectorEl = document.getElementById("modalDaySelector");
-  daySelectorEl.innerHTML = "";
-  Object.keys(DEFAULT_MENU).forEach(day => {
-    const btn = document.createElement("button");
-    btn.className = "day-pill-btn" + (day === selectedModalDay ? " active" : "");
-    btn.textContent = day;
-    btn.addEventListener("click", () => {
+      // 3. Day Selector Pills
+      const daySelectorEl = document.getElementById("modalDaySelector");
+      daySelectorEl.innerHTML = "";
+      Object.keys(DEFAULT_MENU).forEach(day => {
+        const btn = document.createElement("button");
+        btn.className = "day-pill-btn" + (day === selectedModalDay ? " active" : "");
+        btn.textContent = day;
+        btn.addEventListener("click", () => {
+          saveCurrentDayInputsToState();
+          selectedModalDay = day;
+          populateMenuDayInputs(day);
+          document.querySelectorAll(".day-pill-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+        });
+        daySelectorEl.appendChild(btn);
+      });
+
+      populateMenuDayInputs(selectedModalDay);
+    }
+
+    function populateMenuDayInputs(day) {
+      const dayData = MENU[day] || DEFAULT_MENU[day];
+      document.getElementById("editBreakfast").value = dayData.Breakfast || "";
+      document.getElementById("editLunch").value = dayData.Lunch || "";
+      document.getElementById("editSnacks").value = dayData.Snacks || "";
+      document.getElementById("editDinner").value = dayData.Dinner || "";
+    }
+
+    function saveCurrentDayInputsToState() {
+      if (!MENU[selectedModalDay]) MENU[selectedModalDay] = {};
+      MENU[selectedModalDay].Breakfast = document.getElementById("editBreakfast").value.trim();
+      MENU[selectedModalDay].Lunch = document.getElementById("editLunch").value.trim();
+      MENU[selectedModalDay].Snacks = document.getElementById("editSnacks").value.trim();
+      MENU[selectedModalDay].Dinner = document.getElementById("editDinner").value.trim();
+    }
+
+    // Save Changes Action
+    saveAdminBtn.addEventListener("click", () => {
+      // Save Weekday Timings
+      WINDOWS.weekdays.forEach((w, idx) => {
+        const sVal = document.getElementById(`weekday_start_${idx}`).value;
+        const eVal = document.getElementById(`weekday_end_${idx}`).value;
+        if (sVal) w.start = hhmmToMins(sVal);
+        if (eVal) w.end = hhmmToMins(eVal);
+      });
+
+      // Save Weekend Timings
+      WINDOWS.weekends.forEach((w, idx) => {
+        const sVal = document.getElementById(`weekend_start_${idx}`).value;
+        const eVal = document.getElementById(`weekend_end_${idx}`).value;
+        if (sVal) w.start = hhmmToMins(sVal);
+        if (eVal) w.end = hhmmToMins(eVal);
+      });
+
+      // Save currently active day menu inputs
       saveCurrentDayInputsToState();
-      selectedModalDay = day;
-      populateMenuDayInputs(day);
-      document.querySelectorAll(".day-pill-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
+
+      // Persist to Local Storage
+      localStorage.setItem('mess_menu_v3', JSON.stringify(MENU));
+      localStorage.setItem('mess_windows_v3', JSON.stringify(WINDOWS));
+      localStorage.setItem('mess_bg_image_v1', bgImage);
+
+      render();
+      closeModal();
+      showToast("Settings & background saved!");
     });
-    daySelectorEl.appendChild(btn);
-  });
 
-  populateMenuDayInputs(selectedModalDay);
-}
+    // Reset Defaults Action
+    resetDefaultsBtn.addEventListener("click", () => {
+      if (confirm("Are you sure you want to reset all timings, daily menus, and background to default?")) {
+        MENU = JSON.parse(JSON.stringify(DEFAULT_MENU));
+        WINDOWS = JSON.parse(JSON.stringify(DEFAULT_WINDOWS));
+        bgImage = PRESET_WALLPAPERS.cafe;
+        localStorage.removeItem('mess_menu_v3');
+        localStorage.removeItem('mess_windows_v3');
+        localStorage.removeItem('mess_bg_image_v1');
+        applyBgImage(PRESET_WALLPAPERS.cafe);
+        populateAdminForm();
+        render();
+        closeModal();
+        showToast("Reset all settings to default!");
+      }
+    });
 
-function populateMenuDayInputs(day) {
-  const dayData = MENU[day] || DEFAULT_MENU[day];
-  document.getElementById("editBreakfast").value = dayData.Breakfast || "";
-  document.getElementById("editLunch").value = dayData.Lunch || "";
-  document.getElementById("editSnacks").value = dayData.Snacks || "";
-  document.getElementById("editDinner").value = dayData.Dinner || "";
-}
-
-function saveCurrentDayInputsToState() {
-  if (!MENU[selectedModalDay]) MENU[selectedModalDay] = {};
-  MENU[selectedModalDay].Breakfast = document.getElementById("editBreakfast").value.trim();
-  MENU[selectedModalDay].Lunch = document.getElementById("editLunch").value.trim();
-  MENU[selectedModalDay].Snacks = document.getElementById("editSnacks").value.trim();
-  MENU[selectedModalDay].Dinner = document.getElementById("editDinner").value.trim();
-}
-
-// Save Changes Action
-saveAdminBtn.addEventListener("click", () => {
-  // Save Weekday Timings
-  WINDOWS.weekdays.forEach((w, idx) => {
-    const sVal = document.getElementById(`wkday_start_${idx}`).value;
-    const eVal = document.getElementById(`wkday_end_${idx}`).value;
-    if (sVal) w.start = hhmmToMins(sVal);
-    if (eVal) w.end = hhmmToMins(eVal);
-  });
-
-  // Save Weekend Timings
-  WINDOWS.weekends.forEach((w, idx) => {
-    const sVal = document.getElementById(`wknd_start_${idx}`).value;
-    const eVal = document.getElementById(`wknd_end_${idx}`).value;
-    if (sVal) w.start = hhmmToMins(sVal);
-    if (eVal) w.end = hhmmToMins(eVal);
-  });
-
-  // Save currently active day menu inputs
-  saveCurrentDayInputsToState();
-
-  // Persist to Local Storage
-  localStorage.setItem('mess_menu_v3', JSON.stringify(MENU));
-  localStorage.setItem('mess_windows_v3', JSON.stringify(WINDOWS));
-  localStorage.setItem('mess_bg_image_v1', bgImage);
-
-  render();
-  closeModal();
-  showToast("Settings & background saved!");
-});
-
-// Reset Defaults Action
-resetDefaultsBtn.addEventListener("click", () => {
-  if (confirm("Are you sure you want to reset all timings, daily menus, and background to default?")) {
-    MENU = JSON.parse(JSON.stringify(DEFAULT_MENU));
-    WINDOWS = JSON.parse(JSON.stringify(DEFAULT_WINDOWS));
-    bgImage = "none";
-    localStorage.removeItem('mess_menu_v3');
-    localStorage.removeItem('mess_windows_v3');
-    localStorage.removeItem('mess_bg_image_v1');
-    applyBgImage("none");
-    populateAdminForm();
+    // Initial render
     render();
-    closeModal();
-    showToast("Reset all settings to default!");
-  }
-});
-
-// Initial render
-render();
-</script>
+  </script>
 </body>
+
 </html>
