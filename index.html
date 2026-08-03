@@ -1167,13 +1167,48 @@
 <script>
 // Default Master Data
 const DEFAULT_MENU = {
-  Monday:    { Breakfast:"Stuffed Mix Paratha + Green Chutney + Curd & Butter + Tea", Lunch:"Dal Tadka & Kadhi + Seasonal Vegetable + Steamed Rice + Wheat Roti + Salad", Snacks:"Patty served with Tomato Ketchup + Tea", Dinner:"Moong Masoor Dal + Kadhai Paneer + Steamed Rice + Wheat Roti + Rasgulla" },
-  Tuesday:   { Breakfast:"Poha + Sweet Daliya + Bread Toast & Jam + Fruits + Tea", Lunch:"Dal Makhani + Mix Veg (Seasonal) + Jeera Rice + Wheat Roti Boondi Raita + Salad", Snacks:"Samosa Served with Chutney + Tea", Dinner:"Rajmah Masala + Jeera Aloo + Steamed Rice + Wheat Roti + Hot Gulab Jamun" },
-  Wednesday: { Breakfast:"Methi Paratha / Plain Paratha + Curd + Butter + Tea + (Sprouts Chat)", Lunch:"White Chana + Katha Mitha Kadoo Ki Sabzi / Aloo Nutri Sabzi + Steamed Rice + Roti + Plain Curd + Chutney + Onion Salad", Snacks:"Nacho Chips + Tea", Dinner:"Sabut Masoor Dal + Mix Vegetables + Steamed Rice + Wheat Roti + Chutney + Ice Cream" },
-  Thursday:  { Breakfast:"Macroni / Corn Cheeses Sandwich + Bread Jam & Toast + Sweet Daliya + Fruit + Tea", Lunch:"Kadhi + Dry Aloo Mattar + Jeera Rice + Wheat Roti + Salad", Snacks:"Vegetable Pasta + Tea", Dinner:"Ghiya Chana Dal + Mattar Corn Masala / Aloo Capsicum + Steamed Rice + Wheat Roti + Roohafza Milk/ Kheer/ Cold Coffee" },
-  Friday:    { Breakfast:"Mix Paratha + Curd & Butter + Tea", Lunch:"Rajmah Raseela + Soya Nutri Keema (high protein) + Jeera Rice + Wheat Roti + Mix Raita", Snacks:"Pastry + Tea", Dinner:"Moong Saboot Dal + Paneer Preparation + Egg Curry + Steamed Rice + Wheat Roti + Rasgulla" },
-  Saturday:  { Breakfast:"Idli + Sambar + Chutney + Vegetable Upma + Bread Toast + Tea", Lunch:"Dal Makhani + Masala Soya Chaap + Mint Raita + Carrot Rice + Wheat Roti", Snacks:"Peanut Chat + Khatta Metha Pani / Paneer Sandwich + Tea", Dinner:"Saboot Mix Dal + Chilli Potato + Roti + Steamed Rice + Kulfi" },
-  Sunday:    { Breakfast:"Poori + Aloo Chana Sabzi + Halwa + Fruit + Tea", Lunch:"Black Chana + Ghiya Ki Sabzi + Steamed Rice + Wheat Roti + Boondi Raita + Salad", Snacks:"Tea + Biscuits / Pasta", Dinner:"Mah Channa Dal + Aloo Beans / Malai Kofta + Roti + Steamed Rice + Hot Gulab Jamun" },
+  Monday:    { 
+    Breakfast: "Aloo Paratha + Curd +Butter + Chutney + Tea", 
+    Lunch: "Rajmah Raseela + Jeera Aloo + Steamed Rice + Wheat Roti + Boondi Raita + Onion salad / Sirka Onion", 
+    Snacks: "Tikki chaat / Samosa +Tea", 
+    Dinner: "Moong Masoor Dal + Kadhai Paneer / Butter Paneer Masala + Steamed Rice + Wheat Roti + Rasgulla" 
+  },
+  Tuesday:   { 
+    Breakfast: "Poha + Vegetable Sandwich / Cold Sandwich + Fruit + Tea + Milk", 
+    Lunch: "Dal Makhani + Mix Vegetable + Steamed Rice + Wheat Roti + Raita", 
+    Snacks: "Patty + Tea", 
+    Dinner: "Mah Chana Dal + Aloo Shimla Mirch + Steamed Rice + Wheat Roti + Ice Cream (Cone)" 
+  },
+  Wednesday: { 
+    Breakfast: "Macaroni + Garlic Bread + Sweet Daliya + Chaat + Tea + Milk", 
+    Lunch: "Pindi Channa + Katha Meetha Kadoo / Seasonal Vegetables + Steamed Rice + Wheat Roti + Boondi Raita", 
+    Snacks: "Gol gappe / Cake + Katha Metha Pani / Tea", 
+    Dinner: "Yellow Dal Tadka + Malai Kofta / Vegetable Nutri Keema + Steamed Rice + Wheat Roti + Salad + Besan ki Burfi + Fryums & Mirchi Ka Achar" 
+  },
+  Thursday:  { 
+    Breakfast: "Ajwain Paratha + Tamater Aloo ki Sabzi + Curd + Butter + Tea", 
+    Lunch: "Kadhi + Aloo Mutter Dry + Steamed Rice + Wheat Roti + Onion Salad", 
+    Snacks: "Nacho Chips + Tea", 
+    Dinner: "Moong Saboot Dal + Mix Vegetables / Kadhai Mushroom / Mushrrom Do Pyaz + Steamed Rice + Wheat Roti + Papad + Halwa" 
+  },
+  Friday:    { 
+    Breakfast: "Pav Bhaji + Bread Toast & Jam + Tea + Fruit", 
+    Lunch: "Black Chana + Aloo Methi Dry / Chinese Nutri + Wheat Roti + Steamed Rice + Raita", 
+    Snacks: "Namkeen / Pastry + Tea", 
+    Dinner: "Saboot Masoor Dal + Paneer Preparation / Egg Curry + Steamed Rice + Wheat Roti + Gulab Jamun" 
+  },
+  Saturday:  { 
+    Breakfast: "Mix Parantha / Curd / Chutney / Tea + (OR)South Indian Delicacy + (OR)Choco Flakes With Milk / Hot Sandwich / Tea", 
+    Lunch: "Saboot Mix Dal + Tawa Soya Chaap + Steamed Rice + Wheat Roti + Raita", 
+    Snacks: "Vegetable Pasta + Cold Coffee", 
+    Dinner: "Amritsari Dal + Chilli Potato + Wheat Roti + Steamed Rice + Chutney + Laddo" 
+  },
+  Sunday:    { 
+    Breakfast: "Sunday Special Poori + Aloo Bhaji + Tea", 
+    Lunch: "White Channa + Roti Kulcha + Vegetable Jalfrezi + Wheat Roti + Steamed Rice + Boondi Raita / Sunday Special (Chinese) Masala Chaas", 
+    Snacks: "Biscuits + Tea", 
+    Dinner: "Mix Dal + Aloo Nutri / Ghiya Masala + Steamed Rice + Wheat Roti + Gulab Jamun" 
+  },
 };
 
 const DEFAULT_WINDOWS = {
